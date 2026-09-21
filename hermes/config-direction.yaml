@@ -1,0 +1,9 @@
+model: gemini-flash
+agent:
+  reasoning_effort: minimal
+toolsets:
+  enabled:
+    - kanban
+    - memory
+max_tokens_per_turn: 2500
+usage_file_mandatory: true

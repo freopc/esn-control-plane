@@ -1,0 +1,26 @@
+version: 1
+hermes:
+  model_default: gemini-flash
+  reasoning_default: minimal
+  max_tokens_per_turn: 2500
+  max_pro_turns_per_day: 5
+  usage_file_mandatory: true
+  forbidden_in_context: [code, logs, file_contents, diffs]
+antigravity:
+  weekly_quota_alert: [70, 85, 95]
+  degraded_mode_at: 85
+  pro_agents: [presales-architect, cto, rssi, qa-lead]
+  default_effort: low
+  print_timeout: 20m
+  no_cron_trigger: true        # protection anti verrouillage 7 jours
+  no_external_prompt_automation: true
+jules:
+  daily_tasks_max: 70
+  concurrent_max: 10
+  per_project_daily_max: 30
+  reroute_after_failures: 2
+  require_plan_approval: true
+  automation_mode: none        # patch par défaut, PR sur validation
+killswitch:
+  primary: "hermes pause"
+  secondary_file: policies/killswitch

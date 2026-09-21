@@ -1,0 +1,27 @@
+version: 1
+rules:
+  - match: {type: [conversation, decision, alert]}
+    target: hermes
+    reasoning: minimal
+  - match: {type: [cadrage, architecture, adr, arbitrage]}
+    target: agy
+    model: pro
+    effort: medium
+  - match: {type: [coordination, planning, reporting, documentation]}
+    target: agy
+    model: flash
+    effort: low
+  - match: {type: [local_device, windows, home_assistant, network]}
+    target: agy
+    host: auto
+    model: flash
+  - match: {type: [feature, bug, test, refactor, migration, codedoc]}
+    target: jules
+  - match: {type: [lint, build, unit_test, integration_test]}
+    target: github_actions
+  - match: {type: [backlog_decomposition]}
+    target: kanban_decompose
+    model: auxiliary
+heuristic: >
+  Si la tâche peut s'écrire comme une issue autonome avec un critère de succès
+  testable, elle part chez Jules. Sinon elle reste en Antigravity.

@@ -1,0 +1,34 @@
+version: 1
+principles:
+  - Aucun agent opérationnel ne parle directement au PDG.
+  - Un directeur filtre et n'escalade que P1, impact budget, hors mandat ou désaccord.
+  - Le COMEX est le seul émetteur vers le profil direction.
+severities:
+  P1: {label: critique, delay: immediat, channel: ceo_alert, max_lines: 5}
+  P2: {label: majeur,   delay: digest_quotidien, channel: digest}
+  P3: {label: mineur,   delay: comite_hebdo, channel: report}
+  P4: {label: info,     delay: aucun, channel: wiki}
+chain:
+  account-manager: pmo
+  chef-de-projet: pmo
+  presales-architect: cto
+  delivery-lead: cto
+  qa-lead: cto
+  veille-rd: cto
+  support-run: infra-sre
+  conformite: rssi
+  audit-interne: comex
+  infra-sre: comex
+  archiviste: comex
+  cto: comex
+  daf-finops: comex
+  drh-agentops: comex
+  rssi: comex
+  pmo: comex
+  comex: ceo
+ceo_channel:
+  daily_digest: "08:00"
+  timezone: Europe/Paris
+  max_daily_messages: 1
+  p1_override: true
+  verbs: [DEMANDE, QUESTION, DIRECTIVE]
