@@ -1,14 +1,47 @@
-model: gemini-flash
 agent:
   reasoning_effort: minimal
-toolsets:
-  enabled:
+_config_version: 44
+platform_toolsets:
+  cli:
     - kanban
     - memory
-  disabled:
-    - code_execution
+known_plugin_toolsets:
+  cli:
+    - a2a
+    - spotify
+known_builtin_toolsets:
+  cli:
     - browser
-    - image_generation
-    - web_search
-max_tokens_per_turn: 2500
-usage_file_mandatory: true
+    - clarify
+    - code_execution
+    - computer_use
+    - connections
+    - context_engine
+    - cronjob
+    - delegation
+    - discord
+    - discord_admin
+    - file
+    - homeassistant
+    - image_gen
+    - kanban
+    - memory
+    - session_search
+    - skills
+    - spotify
+    - stt
+    - terminal
+    - todo
+    - tts
+    - video
+    - video_gen
+    - vision
+    - web
+    - x_search
+    - yuanbao
+auxiliary:
+  triage_specifier:
+    model: gemini-3.6-flash
+  kanban_decomposer:
+    model: gemini-3.6-flash
+model: gemini-3.6-flash
