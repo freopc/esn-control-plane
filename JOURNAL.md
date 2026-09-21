@@ -42,3 +42,35 @@
   - Pages écrites avec frontmatter présentes et lisibles dans SilverBullet (`/home/maxime/data/silverbullet/ESN/`).
   - Dépôt Git synchronisé sur GitHub (`freopc/esn-control-plane`).
   - Backup cron planifié.
+
+## Phase 4 - Message bus Kanban
+- **Date :** 2026-09-21
+- **Machines :** HA OS (conteneur Hermes), Ubuntu (control plane)
+- **Acteur :** Max-Orchestrator
+
+### Actions et Réalisations :
+1. **Initialisation Kanban & Création des Boards (Inconnue G3) :**
+   - Inconnue G3 résolue : syntaxe exacte confirmée (hermes kanban boards create <slug>).
+   - Boards créés : sn-direction et sn-delivery.
+2. **Syntaxe des tâches (Inconnue G2) :**
+   - Inconnue G2 résolue : l'option de corps est bien --body (hermes kanban create --body).
+   - Correction et validation de scripts/bus_send.sh avec positionnement strict du flag --board <slug>.
+3. **Démarrage du Dispatcher & Gateway :**
+   - Service gateway configuré et démarré sous supervision s6 (hermes gateway start, PID actif).
+   - Dispatcher intégré en boucle active toutes les 60s.
+4. **Test de la hiérarchie à coût nul (Phase 4.5) :**
+   - Émission de 2 alertes P2 sur sn-direction ([pilote][rssi->cto][P2] et [pilote][cto->comex][P2]).
+   - Assignation respective à cto et comex sans consommer le moindre token modèle.
+   - Vérification de la persistance après redémarrage de la gateway : tâches 100% conservées.
+5. **Test de décomposition automatique (Phase 4.6) :**
+   - Création de la tâche de triage Outil de suivi de consommation sur sn-delivery.
+   - Exécution de hermes kanban decompose via le LLM auxiliaire gemini-3.6-flash.
+   - Fan-out réussi : 3 tâches enfants générées dans un graphe ordonné et assignées aux profils spécialisés (client et direction).
+   - Exécution autonome par le dispatcher : la première tâche enfant client a été traitée et passée à l'état done !
+   - Documentation de hermes kanban swarm.
+
+### Critère de sortie Phase 4 :
+- **STATUT : ATTEINT**
+- Les messages ont traversé la hiérarchie à coût nul.
+- Les tâches ont survécu au redémarrage de la gateway.
+- La décomposition a produit un graphe d'enfants complet et orchestré.

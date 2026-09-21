@@ -15,7 +15,7 @@ needs_ceo: ${CEO}
 ${BODY}
 YAML
 
-TASK=$(hermes kanban create "[${PROJECT}][${FROM}->${TO}][${SEV}] ${SUBJECT}" \
-        --body "${BODY_FULL}" --board "${BOARD}" | grep -oE '[0-9]+' | head -1)
-hermes kanban assign "${TASK}" "${TO}" --board "${BOARD}" >/dev/null
+TASK=$(hermes kanban --board "${BOARD}" create "[${PROJECT}][${FROM}->${TO}][${SEV}] ${SUBJECT}" \
+        --body "${BODY_FULL}" | grep -oE 't_[a-z0-9]+|[0-9]+' | head -1)
+hermes kanban --board "${BOARD}" assign "${TASK}" "${TO}" >/dev/null
 echo "${TASK}"
