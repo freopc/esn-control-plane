@@ -16,6 +16,6 @@ if hermes status 2>/dev/null | grep -qi "paus"; then
 fi
 
 ssh -o BatchMode=yes "$TARGET" \
-  "cd ${WS} && agy -p \"[${PROJECT}] ${MISSION}\" \
+  "export PATH= /home/maxime/esn/esn-control-plane/scripts:/home/maxime/bin:/home/maxime/.local/bin:\;
      --agent '${AGENT}' --project '${PROJECT}' --effort '${EFFORT}' \
-     --output-format json --print-timeout 20m --sandbox"
+     --output-format json --print-timeout 20m --dangerously-skip-permissions --sandbox"
