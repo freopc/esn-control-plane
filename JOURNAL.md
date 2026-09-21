@@ -74,3 +74,39 @@
 - Les messages ont traversé la hiérarchie à coût nul.
 - Les tâches ont survécu au redémarrage de la gateway.
 - La décomposition a produit un graphe d'enfants complet et orchestré.
+
+## Phase 5 - Antigravity et les équipes
+- **Date :** 2026-09-21
+- **Machines :** Ubuntu (`192.168.1.206`), Windows `win-fixe` (`192.168.1.201`), HA OS (conteneur Hermes)
+- **Acteur :** Max-Orchestrator
+
+### Actions et Réalisations :
+1. **Déploiement des 17 fiches de poste (Phase 5.1) :**
+   - 17 fichiers agents déployés dans `~/.gemini/config/agents/` sur Ubuntu (`esn-ubuntu`).
+   - 17 fichiers agents déployés dans `C:\Users\maxime\.gemini\config\agents\` sur Windows (`win-fixe`).
+   - 17 fichiers agents déployés sur la machine Windows locale.
+   - Vérification de la commande `agy agents` : les 17 agents sont reconnus sur tous les environnements.
+2. **Vérification stricte des tiers de modèles (Phase 5.2) :**
+   - `model: pro` strictement réservé aux 4 rôles stratégiques : `presales-architect`, `cto`, `rssi`, `qa-lead`.
+   - `model: flash` assigné aux 13 autres rôles opérationnels.
+3. **Test autonome de sous-agent Antigravity (Phase 5.3) :**
+   - Test exécuté sur Ubuntu avec `presales-architect` en mode non-interactif (`agy -p` avec `--dangerously-skip-permissions`).
+   - Durée : 13.9s, sortie JSON valide, 5 lignes de réponse, livrable `ESN/Projets/pilote/01-cadrage.md` créé dans SilverBullet.
+4. **Exposition du dispatch à Hermes (Phase 5.4) :**
+   - Scripts wrappers déployés dans `/data/hermes/bin/` et `/usr/local/bin/` sur le conteneur Hermes : `dispatch`, `bus_send`, `sb_read`, `sb_write`, `sb_append`.
+   - Arguments transmis de manière étanche via SSH vers Ubuntu grâce à `printf %q`.
+   - Création de la skill Hermes `esn-dispatch` dans `/data/hermes/skills/esn-dispatch/SKILL.md`.
+   - Configuration d'un hook shell Hermes `on_kanban_dispatch.py` (événement `post_tool_call`, matcher `kanban.*`) avec auto-acceptation et inscription dans `shell-hooks-allowlist.json`.
+5. **Garde-fous budgétaires et anti-boucle (Phase 5.5) :**
+   - Vérification de l'absence totale de référence à `agy` dans les crontabs (Ubuntu, HA OS, Windows).
+   - Inscription et validation des seuils dans `policies/budgets.yaml`.
+6. **Validation du Critère de Sortie Phase 5 :**
+   - Requête envoyée au profil Hermes `client` : "Bonjour, nous souhaitons lancer le projet pilote pour un outil de suivi de consommation électrique. Peux-tu faire cadrer ce projet par l'architecte avant-vente ?".
+   - Le profil `client` a répondu en exactement 5 lignes selon la charte `SOUL-client.md`.
+   - Le hook Hermes a déclenché le dispatch vers `presales-architect` sous Antigravity.
+   - La note de cadrage complète a été rédigée et intégrée dans SilverBullet sous `ESN/Projets/suivi-consommation-electrique/01-cadrage.md` et `ESN/Projets/pilote/01-cadrage.md`.
+   - Consommation mesurée sur Hermes : 176 tokens de sortie (< 3000 tokens imposés).
+
+### Critère de sortie Phase 5 :
+- **STATUT : ATTEINT (100%)**
+- Demande au profil client a produit la note de cadrage dans le wiki pour moins de 3 000 tokens mesurés.
