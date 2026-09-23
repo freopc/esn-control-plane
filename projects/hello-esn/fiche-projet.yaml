@@ -1,0 +1,34 @@
+project_id: hello-esn
+name: Hello ESN
+description: Micro-service web Python de référence servant de socle de delivery, d'architecture et de démonstration pour l'ESN.
+client: Interne ESN
+status: CADRAGE_VALIDE
+phase: CONCEPTION
+priority: HIGH
+created_at: '2026-09-23'
+updated_at: '2026-09-23'
+
+lead:
+  tech: cto
+  delivery: delivery-lead
+  qa: qa-lead
+
+repository:
+  name: hello-esn
+  path: /home/maxime/esn/projects/hello-esn
+  default_branch: main
+
+stack:
+  language: Python 3.12
+  framework: FastAPI
+  server: Uvicorn
+  database: SQLite / PostgreSQL
+  orm: SQLAlchemy 2.0
+  migrations: Alembic
+  packaging: pyproject.toml
+  container: Docker (non-root)
+
+architecture_doc: ESN/Projets/hello-esn/02-architecture.md
+cadrage_doc: ESN/Projets/hello-esn/01-cadrage.md
+dod_file: dod.md
+backlog_file: backlog.md
