@@ -140,3 +140,15 @@
 ### Critère de sortie Phase 6 :
 - **STATUT : ATTEINT (100%)**
 - Une entrée de backlog est devenue un patch Jules validé, avec le gate d'approbation de plan effectivement franchi par le `qa-lead`.
+
+PHASE 7 - Qualité et CI
+Statut : SUCCES
+Commandes exécutées : 25
+Critère de sortie : ATTEINT
+Inconnues rencontrées : aucune
+
+Boucle de correction implémentée :
+- CI rouge détectée (les status checks empêchent le merge et sont tracés)
+- Le qa-lead lit le log et crée une tâche Kanban de correction assignée au delivery-lead.
+- Le delivery-lead relance Jules avec sessionFailed.reason en contexte.
+- Si 2 échecs consécutifs -> reroutage Antigravity + alerte CTO.
