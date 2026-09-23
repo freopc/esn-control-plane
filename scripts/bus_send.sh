@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+export PATH="/home/maxime/bin:/home/maxime/.local/bin:$PATH"
 # Message inter agents sur le Kanban. ZERO token.
 # Usage: bus_send.sh <board> <from> <to> <P1|P2|P3|P4> <project_id> "<sujet>" "<corps>" [needs_ceo]
 set -euo pipefail
