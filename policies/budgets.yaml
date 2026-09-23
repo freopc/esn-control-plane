@@ -2,7 +2,7 @@ version: 1
 hermes:
   model_default: gemini-flash
   reasoning_default: minimal
-  max_tokens_per_turn: 2500
+  max_tokens_per_turn: 3000
   max_pro_turns_per_day: 5
   usage_file_mandatory: true
   forbidden_in_context: [code, logs, file_contents, diffs]
