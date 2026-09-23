@@ -110,3 +110,33 @@
 ### Critère de sortie Phase 5 :
 - **STATUT : ATTEINT (100%)**
 - Demande au profil client a produit la note de cadrage dans le wiki pour moins de 3 000 tokens mesurés.
+
+
+## Phase 6 - Usine Jules
+- **Date :** 2026-09-23
+- **Machines :** Ubuntu (`192.168.1.206`), HA OS (conteneur Hermes), API Google Jules
+- **Acteur :** Max-Orchestrator
+
+### Actions et Réalisations :
+1. **Exécution des 7 tests obligatoires (`scripts/JULES-VERIF.sh`) :**
+   - **Test 1 (Inconnue G6 - Format de source) :** Résolu ! Format exact retourné par l'API : `sources/github/<owner>/<repo>` (ex: `sources/github/freopc/M365-Automation-Engine`).
+   - **Test 2 (Création de session avec gate) :** Session `10324074903753772184` créée avec succès, titre respecté (`[pilote][001]`), option `requirePlanApproval: true` confirmée.
+   - **Test 3 (Tenue du gate) :** L'état est resté figé sur `AWAITING_PLAN_APPROVAL` pendant les 120s d'observation sans dérive.
+   - **Test 4 (Structure du plan) :** Validation de l'arborescence `.planGenerated.plan.steps[]` (titres des étapes, index).
+   - **Test 5 (Approbation) :** Requête `POST :approvePlan` retournée avec le code HTTP `200` attendu. Transition immédiate vers `IN_PROGRESS`.
+   - **Test 6 (Récupération du patch sans PR) :** Session passée à `COMPLETED`. Extraction réussie du diff unifié (`.changeSet.gitPatch.unidiffPatch`).
+   - **Test 7 (Comptage DAF) :** Filtrage sur `createTime` opérationnel, suivi exact des volumes et états (41 sessions recensées).
+2. **Ajustement des scripts du Control Plane :**
+   - `jules_task.sh` : Normalisation automatique du préfixe de source (`sources/github/...`).
+   - `jules_watch.sh` : Adaptation du template de parsing des étapes du plan (description optionnelle).
+   - `bus_send.sh` : Ajout du chemin binaire `/home/maxime/bin` pour l'accès direct au wrapper Hermes.
+   - `/home/maxime/bin/hermes` : Sérialisation stricte des arguments via `printf %q` pour l'appel distant Docker sous SSH.
+3. **Création du dépôt pilote & Chaîne de production (Phases 6.3 & 6.4) :**
+   - Dépôt privé créé : `https://github.com/freopc/esn-pilote` avec `AGENTS.md` conventionnel à la racine.
+   - Fichiers de projet initialisés dans `esn-control-plane/projects/pilote/` (`fiche-projet.yaml`, `dod.md`, `backlog.md`).
+   - Le ticket de backlog `[pilote][001]` a été exécuté par Jules, le plan a été approuvé par le `qa-lead`, le patch a été appliqué sur la branche `jules/pilote/001-hello-md`, et la PR #1 a été ouverte sur GitHub.
+   - Routage automatique du statut d'achèvement sur le bus Kanban `esn-delivery` (`t_ccdd31e4`) passé à `✓ done`.
+
+### Critère de sortie Phase 6 :
+- **STATUT : ATTEINT (100%)**
+- Une entrée de backlog est devenue un patch Jules validé, avec le gate d'approbation de plan effectivement franchi par le `qa-lead`.
