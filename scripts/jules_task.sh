@@ -2,6 +2,7 @@
 # Crée une session Jules. Appelé par delivery-lead, jamais par Hermes.
 # Usage: jules_task.sh <source_name> <project_id> <issue_id> "<prompt>" [branch] [auto_pr]
 set -euo pipefail
+export PATH="$PATH:/home/maxime/bin:/home/maxime/.local/bin"
 source ~/esn/.env 2>/dev/null || true
 
 SRC="$1"; PROJECT="$2"; ISSUE="$3"; PROMPT="$4"; BRANCH="${5:-main}"; AUTO_PR="${6:-0}"
@@ -16,7 +17,7 @@ if [[ "$SRC" != sources/* ]]; then
   fi
 fi
 
-if hermes status 2>/dev/null | grep -qi "paus"; then
+if hermes status 2>&1 | grep -qi "paus"; then
   echo '{"status":"refused","reason":"hermes paused"}' >&2; exit 3
 fi
 [ -f "$(dirname "$0")/../policies/killswitch" ] && { echo "killswitch actif" >&2; exit 3; }

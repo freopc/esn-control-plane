@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # FinOps réel : agrège les rapports --usage-file de chaque run one-shot.
 set -euo pipefail
+export PATH="$PATH:/home/maxime/bin:/home/maxime/.local/bin"
 : "${ESN_USAGE_DIR:=$HOME/.hermes/esn-usage}"
 DAY=$(date +%F); MONTH=$(date +%Y-%m)
 mkdir -p "$ESN_USAGE_DIR"
