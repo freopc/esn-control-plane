@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+source ~/esn/.env 2>/dev/null || true
 # Lance les 7 tests Jules. Prérequis : JULES_API_KEY exporté, jq installé.
 set -uo pipefail
 H="X-Goog-Api-Key: ${JULES_API_KEY:?}"

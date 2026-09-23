@@ -2,6 +2,8 @@
 # Approuve un plan après validation qa-lead, ou envoie un message de suivi.
 # Usage: jules_approve.sh approve <sid> | jules_approve.sh send <sid> "<message>"
 set -euo pipefail
+source ~/esn/.env 2>/dev/null || true
+
 H="X-Goog-Api-Key: ${JULES_API_KEY:?}"
 case "$1" in
   approve) curl -fsS -X POST "https://jules.googleapis.com/v1alpha/sessions/$2:approvePlan" \

@@ -2,8 +2,19 @@
 # Crée une session Jules. Appelé par delivery-lead, jamais par Hermes.
 # Usage: jules_task.sh <source_name> <project_id> <issue_id> "<prompt>" [branch] [auto_pr]
 set -euo pipefail
+source ~/esn/.env 2>/dev/null || true
+
 SRC="$1"; PROJECT="$2"; ISSUE="$3"; PROMPT="$4"; BRANCH="${5:-main}"; AUTO_PR="${6:-0}"
 : "${JULES_API_KEY:?}"
+
+# Normalisation du format de la source (Inconnue G6 résolue)
+if [[ "$SRC" != sources/* ]]; then
+  if [[ "$SRC" == */* ]]; then
+    SRC="sources/github/${SRC}"
+  else
+    SRC="sources/github/freopc/${SRC}"
+  fi
+fi
 
 if hermes status 2>/dev/null | grep -qi "paus"; then
   echo '{"status":"refused","reason":"hermes paused"}' >&2; exit 3
