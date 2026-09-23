@@ -1,0 +1,7 @@
+id: "demo-auto"
+name: "Application de démonstration autonome"
+client: "Client Demo"
+repo: "freopc/esn-demo-auto"
+source: "sources/github/freopc/esn-demo-auto"
+status: "in_progress"
+created: "2026-09-23"
